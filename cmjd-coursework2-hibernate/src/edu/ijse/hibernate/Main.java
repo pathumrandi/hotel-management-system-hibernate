@@ -8,6 +8,7 @@ import edu.ijse.hibernate.entity.CustomerEntity;
 import edu.ijse.hibernate.entity.embeded.CustomerName;
 //import edu.ijse.hibernate.repository.CustomerRepository;
 import edu.ijse.hibernate.util.SessionFactoryConfiguration;
+import edu.ijse.hibernate.view.CustomerView;
 import java.util.ArrayList;
 import java.util.List;
 import org.hibernate.Session;
@@ -19,6 +20,9 @@ import org.hibernate.Session;
  */
 public class Main {
     public static void main(String[] args) {
+        new CustomerView().setVisible(true);
+        
+        
 //        CustomerRepository customerRepository = new CustomerRepository();
 //        
 //        CustomerName customerName = new CustomerName("Wikum", "Palawaththa");

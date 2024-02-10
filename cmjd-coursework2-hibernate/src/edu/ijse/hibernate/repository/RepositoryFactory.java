@@ -11,14 +11,14 @@ import edu.ijse.hibernate.repository.custom.imple.CustomerRepositoryImple;
  * @author pathum
  */
 public class RepositoryFactory {
-    private RepositoryFactory repositoryFactory;
+    private static RepositoryFactory repositoryFactory;
 
     private RepositoryFactory() {
         
     }
     
-    public RepositoryFactory getInstance(){
-        if(repositoryFactory != null){
+    public static RepositoryFactory getInstance(){
+        if(repositoryFactory == null){
             repositoryFactory = new RepositoryFactory();
         }
         

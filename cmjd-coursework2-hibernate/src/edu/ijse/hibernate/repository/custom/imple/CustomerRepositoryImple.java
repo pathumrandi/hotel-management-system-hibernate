@@ -7,23 +7,26 @@ package edu.ijse.hibernate.repository.custom.imple;
 import edu.ijse.hibernate.entity.CustomerEntity;
 import edu.ijse.hibernate.repository.custom.CustomerRepository;
 import edu.ijse.hibernate.util.SessionFactoryConfiguration;
+//import java.util.ArrayList;
 import java.util.List;
+//import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.hibernate.query.Query;
 
 /**
  *
  * @author pathum
  */
-public class CustomerRepositoryImple implements CustomerRepository{
-    
+public class CustomerRepositoryImple implements CustomerRepository {
+
     private final Session session = SessionFactoryConfiguration.getInstance().getSession();
 
     @Override
     public Integer save(CustomerEntity t) throws Exception {
         Transaction transaction = session.beginTransaction();
         try {
-            Integer id = (Integer)session.save(t);
+            Integer id = (Integer) session.save(t);
             transaction.commit();
             return id;
         } catch (Exception e) {
@@ -65,7 +68,11 @@ public class CustomerRepositoryImple implements CustomerRepository{
 
     @Override
     public List<CustomerEntity> getAll() throws Exception {
-        return null;
+        List<CustomerEntity> entities;
+        String hql = "FROM customer";
+        Query query = session.createQuery(hql);
+        entities = query.list();
+        return entities;
     }
-    
+
 }

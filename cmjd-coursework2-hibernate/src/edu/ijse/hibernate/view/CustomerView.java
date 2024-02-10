@@ -4,17 +4,30 @@
  */
 package edu.ijse.hibernate.view;
 
+import edu.ijse.hibernate.controller.CustomerController;
+import edu.ijse.hibernate.dto.CustomerDto;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author pathum
  */
 public class CustomerView extends javax.swing.JFrame {
+    
+    private final CustomerController CUSTOMER_CONTROLLER;
 
     /**
      * Creates new form CustomerView
      */
     public CustomerView() {
+        CUSTOMER_CONTROLLER = new CustomerController();
         initComponents();
+        loadCustomers();
     }
 
     /**
@@ -49,7 +62,7 @@ public class CustomerView extends javax.swing.JFrame {
         txtName2 = new javax.swing.JTextField();
         txtDob = new javax.swing.JTextField();
         lblAddress = new javax.swing.JLabel();
-        txtProvince = new javax.swing.JTextField();
+        txtMobile2 = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -165,7 +178,7 @@ public class CustomerView extends javax.swing.JFrame {
                                         .addGap(29, 29, 29)
                                         .addComponent(lblMobile2, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addGap(18, 18, 18)
-                                        .addComponent(txtProvince, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addComponent(txtMobile2, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addGroup(layout.createSequentialGroup()
                                         .addGap(51, 51, 51)
                                         .addComponent(lblName2, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -213,7 +226,7 @@ public class CustomerView extends javax.swing.JFrame {
                                     .addComponent(txtMobile1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(lblMobile2)
-                        .addComponent(txtProvince, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(txtMobile2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lblNic)
@@ -254,37 +267,37 @@ public class CustomerView extends javax.swing.JFrame {
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(CustomerView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(CustomerView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(CustomerView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(CustomerView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new CustomerView().setVisible(true);
-            }
-        });
-    }
+//    public static void main(String args[]) {
+//        /* Set the Nimbus look and feel */
+//        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+//        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+//         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+//         */
+//        try {
+//            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+//                if ("Nimbus".equals(info.getName())) {
+//                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+//                    break;
+//                }
+//            }
+//        } catch (ClassNotFoundException ex) {
+//            java.util.logging.Logger.getLogger(CustomerView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        } catch (InstantiationException ex) {
+//            java.util.logging.Logger.getLogger(CustomerView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        } catch (IllegalAccessException ex) {
+//            java.util.logging.Logger.getLogger(CustomerView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+//            java.util.logging.Logger.getLogger(CustomerView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        }
+//        //</editor-fold>
+//
+//        /* Create and display the form */
+//        java.awt.EventQueue.invokeLater(new Runnable() {
+//            public void run() {
+//                new CustomerView().setVisible(true);
+//            }
+//        });
+//    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnDelete;
@@ -306,15 +319,55 @@ public class CustomerView extends javax.swing.JFrame {
     private javax.swing.JTextField txtCustId;
     private javax.swing.JTextField txtDob;
     private javax.swing.JTextField txtMobile1;
+    private javax.swing.JTextField txtMobile2;
     private javax.swing.JTextField txtName1;
     private javax.swing.JTextField txtName2;
     private javax.swing.JTextField txtNic;
-    private javax.swing.JTextField txtProvince;
     private javax.swing.JTextField txtTitle;
     // End of variables declaration//GEN-END:variables
 
+    
+    private void loadCustomers(){
+        try {
+            String[] columns = {"ID", "Name", "DOB", "Address", "NIC"};
+            DefaultTableModel dtm = new DefaultTableModel(columns, 0) {
+                @Override
+                public boolean isCellEditable(int row, int column) {
+                    return false;
+                }
+
+            };
+            tblCustomer.setModel(dtm);
+            List<CustomerDto> customerDtos = CUSTOMER_CONTROLLER.getAll();
+            for (CustomerDto e : customerDtos) {
+                Object[] rawData = {e.getCustId(), e.getCustTitle() + " " + e.getName1() + " " + e.getName2(), e.getDob(), e.getCustAddress(), e.getNic()};
+                dtm.addRow(rawData);
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(CustomerView.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
     private void saveCustomer() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        try {
+            List<String> mobiles = new ArrayList<>();
+            mobiles.add(txtMobile1.getText());
+            mobiles.add(txtMobile2.getText());
+            CustomerDto customerDto = new CustomerDto(
+                    Integer.parseInt(txtCustId.getText()),
+                    txtTitle.getText(),
+                    txtDob.getText(),
+                    txtAddress.getText(),
+                    txtNic.getText(),
+                    mobiles,
+                    txtName1.getText(),
+                    txtName2.getText());
+            
+            String resp = CUSTOMER_CONTROLLER.saveCustomer(customerDto);
+            clearForm();
+            JOptionPane.showMessageDialog(this, resp);
+        } catch (Exception ex) {
+            Logger.getLogger(CustomerView.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     private void updateCustomer() {
@@ -327,5 +380,18 @@ public class CustomerView extends javax.swing.JFrame {
 
     private void getCustomer() {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+    
+    private void clearForm(){
+        txtCustId.setText("");
+        txtTitle.setText("");
+        txtDob.setText("");
+        txtAddress.setText("");
+        txtNic.setText("");
+        txtMobile1.setText("");
+        txtMobile2.setText("");
+        txtName1.setText("");
+        txtName2.setText("");
+
     }
 }
