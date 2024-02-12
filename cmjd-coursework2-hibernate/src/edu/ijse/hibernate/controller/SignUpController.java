@@ -19,5 +19,10 @@ public class SignUpController {
     public String insertUser(UserDto dto) throws Exception {
         return signupService.saveUser(dto);
     }
+
+    public UserDto searchUser(String userName) throws Exception {
+        return signupService.getUser(userName);
+    }
+    
     
 }

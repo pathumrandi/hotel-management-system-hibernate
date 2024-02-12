@@ -244,10 +244,20 @@ public class SignUpView extends javax.swing.JFrame {
                     txtAnswer.getText());
             
             String resp = signupController.insertUser(dto);
+            clear();
             JOptionPane.showMessageDialog(this, resp);
         } catch (Exception ex) {
             Logger.getLogger(SignUpView.class.getName()).log(Level.SEVERE, null, ex);
         }
         
+    }
+    
+    private void clear(){
+        txtUsername.setText("");
+        txtName.setText("");
+        txtEmail.setText("");
+        txtPassword.setText("");
+        txtSecurityQuestion.getSelectedItem().toString();
+        txtAnswer.setText("");
     }
 }

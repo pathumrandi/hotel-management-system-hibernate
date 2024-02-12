@@ -43,7 +43,8 @@ public class UserRepositoryImple implements UserRepository{
 
     @Override
     public UserEntity get(String id) throws Exception {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        UserEntity e = session.get(UserEntity.class, id);
+        return e;
     }
 
     @Override
