@@ -6,6 +6,8 @@ package edu.ijse.hibernate.util;
 
 
 import edu.ijse.hibernate.entity.CustomerEntity;
+import edu.ijse.hibernate.entity.RoomCategoryEntity;
+import edu.ijse.hibernate.entity.RoomEntity;
 import edu.ijse.hibernate.entity.UserEntity;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -23,7 +25,9 @@ public class SessionFactoryConfiguration {
     private SessionFactoryConfiguration() {
         Configuration configuration = new Configuration().configure()
                 .addAnnotatedClass(CustomerEntity.class)
-                .addAnnotatedClass(UserEntity.class);
+                .addAnnotatedClass(UserEntity.class)
+                .addAnnotatedClass(RoomEntity.class)
+                .addAnnotatedClass(RoomCategoryEntity.class);
         
         sessionFactory = configuration.buildSessionFactory();
     }

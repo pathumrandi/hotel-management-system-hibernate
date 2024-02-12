@@ -52,6 +52,11 @@ public class HomeView extends javax.swing.JFrame {
 
         btnRoom.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         btnRoom.setText("Manage Rooms");
+        btnRoom.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRoomActionPerformed(evt);
+            }
+        });
 
         btnRoomCategory.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         btnRoomCategory.setText("Manage Room Categories");
@@ -133,9 +138,14 @@ public class HomeView extends javax.swing.JFrame {
 
     private void btnCustomerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCustomerActionPerformed
         // TODO add your handling code here:
-        setVisible(false);
+        //setVisible(false);
         new CustomerView().setVisible(true);
     }//GEN-LAST:event_btnCustomerActionPerformed
+
+    private void btnRoomActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRoomActionPerformed
+        // TODO add your handling code here:
+        new RoomView().setVisible(true);
+    }//GEN-LAST:event_btnRoomActionPerformed
 
     /**
      * @param args the command line arguments

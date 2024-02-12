@@ -10,7 +10,9 @@ import edu.ijse.hibernate.entity.embeded.CustomerName;
 import edu.ijse.hibernate.util.SessionFactoryConfiguration;
 import edu.ijse.hibernate.view.AdminView;
 import edu.ijse.hibernate.view.CustomerView;
+import edu.ijse.hibernate.view.HomeView;
 import edu.ijse.hibernate.view.LoginView;
+import edu.ijse.hibernate.view.RoomView;
 import edu.ijse.hibernate.view.SignUpView;
 import java.util.ArrayList;
 import java.util.List;
@@ -25,8 +27,10 @@ public class Main {
     public static void main(String[] args) {
         //new CustomerView().setVisible(true);
         //new SignUpView().setVisible(true);
-        //Session session = SessionFactoryConfiguration.getInstance().getSession();
-        new LoginView().setVisible(true);
+        Session session = SessionFactoryConfiguration.getInstance().getSession();
+        //new LoginView().setVisible(true);
         //new AdminView().setVisible(true);
+        //new HomeView().setVisible(true);
+        //new RoomView().setVisible(true);
     }
 }

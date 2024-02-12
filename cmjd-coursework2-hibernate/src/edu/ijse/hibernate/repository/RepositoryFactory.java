@@ -5,6 +5,8 @@
 package edu.ijse.hibernate.repository;
 
 import edu.ijse.hibernate.repository.custom.imple.CustomerRepositoryImple;
+import edu.ijse.hibernate.repository.custom.imple.RoomCategoryRepositoryImple;
+import edu.ijse.hibernate.repository.custom.imple.RoomRepositoryImple;
 import edu.ijse.hibernate.repository.custom.imple.UserRepositoryImple;
 
 /**
@@ -37,6 +39,13 @@ public class RepositoryFactory {
                 
             case USER:
                 return new UserRepositoryImple();
+                
+            case ROOM:
+                return new RoomRepositoryImple();
+                
+            case ROOM_CATOGORIES:
+                return new RoomCategoryRepositoryImple();
+                
             default:
                 return null;
         }

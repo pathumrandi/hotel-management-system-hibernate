@@ -5,6 +5,8 @@
 package edu.ijse.hibernate.service;
 
 import edu.ijse.hibernate.service.custom.imple.CustomerServiceImple;
+import edu.ijse.hibernate.service.custom.imple.RoomCategoryServiceImple;
+import edu.ijse.hibernate.service.custom.imple.RoomServiceImple;
 import edu.ijse.hibernate.service.custom.imple.SignUpServiceImple;
 
 /**
@@ -29,13 +31,13 @@ public class ServiceFactory {
     public SuperService getService(ServiceType type){
         switch (type) {
             case ROOM:
-                return null;
+                return new RoomServiceImple();
             
             case CUSTOMER:
                 return new CustomerServiceImple();
                 
             case ROOM_CATEGORIES:
-                return null;
+                return new RoomCategoryServiceImple();
                 
             case USER:
                 return new SignUpServiceImple();

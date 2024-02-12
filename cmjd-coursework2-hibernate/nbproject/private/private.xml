@@ -3,11 +3,10 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/D:/IJSE/Hibernate/cmjd-coursework2-hibernate/src/edu/ijse/hibernate/service/custom/imple/SignUpServiceImple.java</file>
-            <file>file:/D:/IJSE/Hibernate/cmjd-coursework2-hibernate/src/edu/ijse/hibernate/controller/SignUpController.java</file>
+            <file>file:/D:/IJSE/Hibernate/cmjd-coursework2-hibernate/src/edu/ijse/hibernate/view/RoomView.java</file>
             <file>file:/D:/IJSE/Hibernate/cmjd-coursework2-hibernate/src/edu/ijse/hibernate/Main.java</file>
             <file>file:/D:/IJSE/Hibernate/cmjd-coursework2-hibernate/src/edu/ijse/hibernate/view/AdminView.java</file>
-            <file>file:/D:/IJSE/Hibernate/cmjd-coursework2-hibernate/src/edu/ijse/hibernate/repository/custom/imple/UserRepositoryImple.java</file>
+            <file>file:/D:/IJSE/Hibernate/cmjd-coursework2-hibernate/src/edu/ijse/hibernate/view/HomeView.java</file>
         </group>
     </open-files>
 </project-private>
