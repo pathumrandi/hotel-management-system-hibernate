@@ -50,7 +50,7 @@ public class SignUpServiceImple implements SignUpService{
     @Override
     public UserDto getUser(String userId) throws Exception {
         UserEntity e = userRepository.get(userId);
-        return new UserDto(e.getUserName(), e.getName(), e.getEmail(), e.getPassword(), e.getSecurityQuestion(), e.getAnswer());
+        return new UserDto(e.getUserName(), e.getName(), e.getEmail(), e.getPassword(), e.getSecurityQuestion(), e.getAnswer(),e.getStatus());
     }
 
     @Override

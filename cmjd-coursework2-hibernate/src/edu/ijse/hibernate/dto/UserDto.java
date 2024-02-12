@@ -26,6 +26,6 @@ public class UserDto {
     private String password;
     private String securityQuestion;
     private String answer;
-    
+    private String status;
     
 }

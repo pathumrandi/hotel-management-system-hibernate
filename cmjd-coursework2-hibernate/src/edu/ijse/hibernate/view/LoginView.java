@@ -184,9 +184,14 @@ public class LoginView extends javax.swing.JFrame {
             try {
                 UserDto dto = signupController.searchUser(userName);
                 if (password.equals(dto.getPassword())) {
-                    setVisible(false);
-                    new HomeView().setVisible(true);
-                }else{
+                    if (dto.getStatus().equals("true")) {
+                        setVisible(false);
+                        new HomeView().setVisible(true);
+                    }else{
+                        JOptionPane.showMessageDialog(null, "Wait for admin approval");
+                    }
+
+                } else {
                     JOptionPane.showMessageDialog(null, "Invalid Password!");
                 }
             } catch (Exception ex) {
