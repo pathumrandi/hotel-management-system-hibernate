@@ -26,7 +26,7 @@ public class Main {
         //new CustomerView().setVisible(true);
         //new SignUpView().setVisible(true);
         //Session session = SessionFactoryConfiguration.getInstance().getSession();
-        //new LoginView().setVisible(true);
-        new AdminView().setVisible(true);
+        new LoginView().setVisible(true);
+        //new AdminView().setVisible(true);
     }
 }

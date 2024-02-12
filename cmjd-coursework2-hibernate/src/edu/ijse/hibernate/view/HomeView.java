@@ -4,6 +4,8 @@
  */
 package edu.ijse.hibernate.view;
 
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author pathum
@@ -26,22 +28,114 @@ public class HomeView extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        btnCustomer = new javax.swing.JButton();
+        btnReservation = new javax.swing.JButton();
+        btnRoom = new javax.swing.JButton();
+        btnRoomCategory = new javax.swing.JButton();
+        btnCancelReservation = new javax.swing.JButton();
+        btnLogout = new javax.swing.JButton();
+        btnExit = new javax.swing.JButton();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
+
+        btnCustomer.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        btnCustomer.setText("Manage Customer");
+        btnCustomer.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCustomerActionPerformed(evt);
+            }
+        });
+
+        btnReservation.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        btnReservation.setText("Manage Reservation");
+
+        btnRoom.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        btnRoom.setText("Manage Rooms");
+
+        btnRoomCategory.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        btnRoomCategory.setText("Manage Room Categories");
+
+        btnCancelReservation.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        btnCancelReservation.setText("Reservation Cancelation");
+
+        btnLogout.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        btnLogout.setText("Logout");
+        btnLogout.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLogoutActionPerformed(evt);
+            }
+        });
+
+        btnExit.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        btnExit.setText("Exit");
+        btnExit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnExitActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1366, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(33, 33, 33)
+                .addComponent(btnCustomer)
+                .addGap(36, 36, 36)
+                .addComponent(btnReservation)
+                .addGap(31, 31, 31)
+                .addComponent(btnCancelReservation)
+                .addGap(18, 18, 18)
+                .addComponent(btnRoom)
+                .addGap(43, 43, 43)
+                .addComponent(btnRoomCategory)
+                .addGap(42, 42, 42)
+                .addComponent(btnLogout)
+                .addGap(52, 52, 52)
+                .addComponent(btnExit)
+                .addContainerGap(62, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 768, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(34, 34, 34)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnRoomCategory)
+                    .addComponent(btnRoom)
+                    .addComponent(btnCancelReservation)
+                    .addComponent(btnReservation)
+                    .addComponent(btnCustomer)
+                    .addComponent(btnLogout)
+                    .addComponent(btnExit))
+                .addContainerGap(702, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnLogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLogoutActionPerformed
+        // TODO add your handling code here:
+        int a = JOptionPane.showConfirmDialog(null, "Do you want to logout?", "Select", JOptionPane.YES_NO_OPTION);
+        if (a == 0) {
+            setVisible(false);
+            new LoginView().setVisible(true);
+        }
+    }//GEN-LAST:event_btnLogoutActionPerformed
+
+    private void btnExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExitActionPerformed
+        // TODO add your handling code here:
+        int a = JOptionPane.showConfirmDialog(null, "Do you want to close application?", "Select", JOptionPane.YES_NO_OPTION);
+        if (a == 0) {
+            System.exit(0);
+        }
+    }//GEN-LAST:event_btnExitActionPerformed
+
+    private void btnCustomerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCustomerActionPerformed
+        // TODO add your handling code here:
+        setVisible(false);
+        new CustomerView().setVisible(true);
+    }//GEN-LAST:event_btnCustomerActionPerformed
 
     /**
      * @param args the command line arguments
@@ -79,5 +173,12 @@ public class HomeView extends javax.swing.JFrame {
 //    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnCancelReservation;
+    private javax.swing.JButton btnCustomer;
+    private javax.swing.JButton btnExit;
+    private javax.swing.JButton btnLogout;
+    private javax.swing.JButton btnReservation;
+    private javax.swing.JButton btnRoom;
+    private javax.swing.JButton btnRoomCategory;
     // End of variables declaration//GEN-END:variables
 }

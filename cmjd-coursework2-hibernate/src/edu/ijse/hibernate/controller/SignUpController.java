@@ -28,6 +28,14 @@ public class SignUpController {
     public List<UserDto> getAll() throws Exception {
         return signupService.getAllUsers();
     }
+
+    public String updateUser(UserDto dto) throws Exception {
+        return signupService.updateUser(dto);
+    }
+
+    
+
+    
     
     
 }

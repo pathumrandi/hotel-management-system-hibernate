@@ -184,7 +184,7 @@ public class LoginView extends javax.swing.JFrame {
             try {
                 UserDto dto = signupController.searchUser(userName);
                 if (password.equals(dto.getPassword())) {
-                    if (dto.getStatus().equals("true")) {
+                    if (dto.getStatus().equals("false")) {
                         setVisible(false);
                         new HomeView().setVisible(true);
                     }else{

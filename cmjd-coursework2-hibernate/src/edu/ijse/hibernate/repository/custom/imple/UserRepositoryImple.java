@@ -33,8 +33,19 @@ public class UserRepositoryImple implements UserRepository{
     }
 
     @Override
-    public void update(UserEntity t) throws Exception {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public void update(UserEntity t) throws Exception {                       
+        Transaction transaction = session.beginTransaction();
+        session.merge(t);
+        try {
+            session.update(t);
+            System.out.println("Success");
+            transaction.commit();
+        } catch (Exception e) {
+            System.out.println(e);
+            transaction.rollback();
+            //throw new RuntimeException("Error at update " + t.getUserName());
+        }
+            
     }
 
     @Override

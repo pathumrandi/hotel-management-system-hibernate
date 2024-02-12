@@ -11,13 +11,14 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
 
 /**
  *
  * @author pathum
  */
 public class AdminView extends javax.swing.JFrame {
-    
+
     SignUpController signupController;
 
     /**
@@ -75,6 +76,11 @@ public class AdminView extends javax.swing.JFrame {
 
         btnSearch.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         btnSearch.setText("Search");
+        btnSearch.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSearchActionPerformed(evt);
+            }
+        });
 
         btnClear.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         btnClear.setText("Clear");
@@ -95,6 +101,11 @@ public class AdminView extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        tblUsers.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblUsersMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tblUsers);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -154,16 +165,16 @@ public class AdminView extends javax.swing.JFrame {
 
     private void btnExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExitActionPerformed
         // TODO add your handling code here:
-        int a = JOptionPane.showConfirmDialog(null, "Do you want to close application?","Select",JOptionPane.YES_NO_OPTION);
-        if(a==0){
+        int a = JOptionPane.showConfirmDialog(null, "Do you want to close application?", "Select", JOptionPane.YES_NO_OPTION);
+        if (a == 0) {
             System.exit(0);
         }
     }//GEN-LAST:event_btnExitActionPerformed
 
     private void btnLogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLogoutActionPerformed
         // TODO add your handling code here:
-        int a = JOptionPane.showConfirmDialog(null, "Do you want to logout?","Select",JOptionPane.YES_NO_OPTION);
-        if(a==0){
+        int a = JOptionPane.showConfirmDialog(null, "Do you want to logout?", "Select", JOptionPane.YES_NO_OPTION);
+        if (a == 0) {
             setVisible(false);
             new LoginView().setVisible(true);
         }
@@ -174,6 +185,16 @@ public class AdminView extends javax.swing.JFrame {
         setVisible(false);
         new AdminView().setVisible(true);
     }//GEN-LAST:event_btnClearActionPerformed
+
+    private void btnSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchActionPerformed
+        // TODO add your handling code here:
+        searchUser();
+    }//GEN-LAST:event_btnSearchActionPerformed
+
+    private void tblUsersMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblUsersMouseClicked
+        // TODO add your handling code here:
+        addUser();
+    }//GEN-LAST:event_tblUsersMouseClicked
 
     /**
      * @param args the command line arguments
@@ -222,9 +243,9 @@ public class AdminView extends javax.swing.JFrame {
     private javax.swing.JTextField txtSearch;
     // End of variables declaration//GEN-END:variables
 
-    private void loadTable(){
+    private void loadTable() {
         try {
-            String[] columns = {"Username", "Name", "Email", "Password", "Security Question", "Answer","Status"};
+            String[] columns = {"Username", "Name", "Email", "Password", "Security Question", "Answer", "Status"};
             DefaultTableModel dtm = new DefaultTableModel(columns, 0) {
                 @Override
                 public boolean isCellEditable(int row, int column) {
@@ -233,13 +254,14 @@ public class AdminView extends javax.swing.JFrame {
 
             };
             tblUsers.setModel(dtm);
-            
+
             List<UserDto> dtos = signupController.getAll();
-            for(UserDto dto:dtos){
+            for (UserDto dto : dtos) {
                 Object[] rawData = {
                     dto.getUserName(),
                     dto.getName(),
                     dto.getEmail(),
+                    dto.getPassword(),
                     dto.getSecurityQuestion(),
                     dto.getAnswer(),
                     dto.getStatus()};
@@ -250,5 +272,51 @@ public class AdminView extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, ex.getMessage());
         }
     }
-    
+
+    private void searchUser() {
+        try {
+            String[] columns = {"Username", "Name", "Email", "Password", "Security Question", "Answer", "Status"};
+            DefaultTableModel dtm = new DefaultTableModel(columns, 0) {
+                @Override
+                public boolean isCellEditable(int row, int column) {
+                    return false;
+                }
+
+            };
+            tblUsers.setModel(dtm);
+
+            UserDto dto = signupController.searchUser(txtSearch.getText());
+            Object[] rawData = {
+                dto.getUserName(),
+                dto.getName(),
+                dto.getEmail(),
+                dto.getPassword(),
+                dto.getSecurityQuestion(),
+                dto.getAnswer(),
+                dto.getStatus()};
+
+            dtm.addRow(rawData);
+        } catch (Exception ex) {
+            Logger.getLogger(AdminView.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    private void addUser() {
+        try {
+            String userName = tblUsers.getValueAt(tblUsers.getSelectedRow(), 1).toString();
+            UserDto dto = signupController.searchUser(userName);
+            int a = JOptionPane.showConfirmDialog(null, "Do you want to add user "+userName+"?", "Select", JOptionPane.YES_NO_OPTION);
+            String resp = "";
+            if (a == 0) {
+                dto.setStatus("true");
+                resp = signupController.updateUser(dto);
+            }
+
+            loadTable();
+            JOptionPane.showMessageDialog(this, resp);
+        } catch (Exception ex) {
+            Logger.getLogger(AdminView.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
 }

@@ -40,7 +40,18 @@ public class SignUpServiceImple implements SignUpService{
 
     @Override
     public String updateUser(UserDto userDto) throws Exception {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        UserEntity entity = new UserEntity(
+                userDto.getUserName(),
+                userDto.getName(),
+                userDto.getEmail(),
+                userDto.getPassword(),
+                userDto.getSecurityQuestion(),
+                userDto.getAnswer(),
+                userDto.getStatus());
+        System.out.println(userDto.getStatus());
+        userRepository.update(entity);
+        return "Succesfully updated";
+        
     }
 
     @Override
