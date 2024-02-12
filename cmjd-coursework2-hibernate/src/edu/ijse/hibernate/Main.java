@@ -8,6 +8,7 @@ import edu.ijse.hibernate.entity.CustomerEntity;
 import edu.ijse.hibernate.entity.embeded.CustomerName;
 //import edu.ijse.hibernate.repository.CustomerRepository;
 import edu.ijse.hibernate.util.SessionFactoryConfiguration;
+import edu.ijse.hibernate.view.AdminView;
 import edu.ijse.hibernate.view.CustomerView;
 import edu.ijse.hibernate.view.LoginView;
 import edu.ijse.hibernate.view.SignUpView;
@@ -25,6 +26,7 @@ public class Main {
         //new CustomerView().setVisible(true);
         //new SignUpView().setVisible(true);
         //Session session = SessionFactoryConfiguration.getInstance().getSession();
-        new LoginView().setVisible(true);
+        //new LoginView().setVisible(true);
+        new AdminView().setVisible(true);
     }
 }

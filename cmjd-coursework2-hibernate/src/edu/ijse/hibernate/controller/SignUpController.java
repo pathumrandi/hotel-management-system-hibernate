@@ -7,6 +7,7 @@ package edu.ijse.hibernate.controller;
 import edu.ijse.hibernate.dto.UserDto;
 import edu.ijse.hibernate.service.ServiceFactory;
 import edu.ijse.hibernate.service.custom.SignUpService;
+import java.util.List;
 
 /**
  *
@@ -22,6 +23,10 @@ public class SignUpController {
 
     public UserDto searchUser(String userName) throws Exception {
         return signupService.getUser(userName);
+    }
+
+    public List<UserDto> getAll() throws Exception {
+        return signupService.getAllUsers();
     }
     
     

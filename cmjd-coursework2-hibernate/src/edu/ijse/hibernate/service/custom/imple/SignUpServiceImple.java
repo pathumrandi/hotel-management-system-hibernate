@@ -9,6 +9,7 @@ import edu.ijse.hibernate.entity.UserEntity;
 import edu.ijse.hibernate.repository.RepositoryFactory;
 import edu.ijse.hibernate.repository.custom.UserRepository;
 import edu.ijse.hibernate.service.custom.SignUpService;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -55,7 +56,20 @@ public class SignUpServiceImple implements SignUpService{
 
     @Override
     public List<UserDto> getAllUsers() throws Exception {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        List<UserDto> userDtos = new ArrayList<>();
+        List<UserEntity> userEntities = userRepository.getAll();
+        
+        for(UserEntity e:userEntities){   
+            userDtos.add(new UserDto(
+                    e.getUserName(),
+                    e.getName(),
+                    e.getEmail(),
+                    e.getPassword(),
+                    e.getSecurityQuestion(),
+                    e.getAnswer(),
+                    e.getStatus()));
+        }
+        return userDtos;
     }
     
 }

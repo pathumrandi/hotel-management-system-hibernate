@@ -10,6 +10,7 @@ import edu.ijse.hibernate.util.SessionFactoryConfiguration;
 import java.util.List;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.hibernate.query.Query;
 
 /**
  *
@@ -49,7 +50,12 @@ public class UserRepositoryImple implements UserRepository{
 
     @Override
     public List<UserEntity> getAll() throws Exception {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        List<UserEntity> entities;
+        String hql = "FROM UserEntity";
+        Query query = session.createQuery(hql);
+        entities = query.list();
+        System.out.println("Size: "+entities.size());
+        return entities;
     }
     
     

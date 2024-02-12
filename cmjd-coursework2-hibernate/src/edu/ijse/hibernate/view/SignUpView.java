@@ -241,7 +241,7 @@ public class SignUpView extends javax.swing.JFrame {
                     txtEmail.getText(),
                     txtPassword.getText(),
                     txtSecurityQuestion.getSelectedItem().toString(),
-                    txtAnswer.getText());
+                    txtAnswer.getText(),"false");
             
             String resp = signupController.insertUser(dto);
             clear();
