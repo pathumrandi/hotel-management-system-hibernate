@@ -69,9 +69,10 @@ public class CustomerRepositoryImple implements CustomerRepository {
     @Override
     public List<CustomerEntity> getAll() throws Exception {
         List<CustomerEntity> entities;
-        String hql = "FROM customer";
+        String hql = "FROM CustomerEntity";
         Query query = session.createQuery(hql);
         entities = query.list();
+        System.out.println("Size: "+entities.size());
         return entities;
     }
 

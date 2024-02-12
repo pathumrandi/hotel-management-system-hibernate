@@ -5,6 +5,7 @@
 package edu.ijse.hibernate.service;
 
 import edu.ijse.hibernate.service.custom.imple.CustomerServiceImple;
+import edu.ijse.hibernate.service.custom.imple.SignUpServiceImple;
 
 /**
  *
@@ -36,12 +37,15 @@ public class ServiceFactory {
             case ROOM_CATEGORIES:
                 return null;
                 
+            case USER:
+                return new SignUpServiceImple();
+                
             default:
                 return null;
         }
     }
     
     public enum ServiceType{
-        ROOM, CUSTOMER, ROOM_CATEGORIES
+        ROOM, CUSTOMER, ROOM_CATEGORIES,USER
     }
 }

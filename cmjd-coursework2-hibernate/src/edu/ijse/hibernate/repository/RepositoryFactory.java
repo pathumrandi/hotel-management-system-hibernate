@@ -5,6 +5,7 @@
 package edu.ijse.hibernate.repository;
 
 import edu.ijse.hibernate.repository.custom.imple.CustomerRepositoryImple;
+import edu.ijse.hibernate.repository.custom.imple.UserRepositoryImple;
 
 /**
  *
@@ -26,13 +27,16 @@ public class RepositoryFactory {
     }
     
     public enum repositoryType{
-        CUSTOMER, ROOM, ROOM_CATOGORIES
+        CUSTOMER, ROOM, ROOM_CATOGORIES,USER
     }
     
     public SuperRepository getRepository(repositoryType type){
         switch (type) {
             case CUSTOMER:
                 return new CustomerRepositoryImple();
+                
+            case USER:
+                return new UserRepositoryImple();
             default:
                 return null;
         }
