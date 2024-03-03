@@ -65,6 +65,11 @@ public class LoginView extends javax.swing.JFrame {
 
         btnSignup.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         btnSignup.setText("Signup");
+        btnSignup.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSignupActionPerformed(evt);
+            }
+        });
 
         btnForgetPassword.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         btnForgetPassword.setText("Forget Password?");
@@ -124,6 +129,12 @@ public class LoginView extends javax.swing.JFrame {
         // TODO add your handling code here:
         searchUser();
     }//GEN-LAST:event_btnLoginActionPerformed
+
+    private void btnSignupActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSignupActionPerformed
+        // TODO add your handling code here:
+        setVisible(false);
+        new SignUpView().setVisible(true);
+    }//GEN-LAST:event_btnSignupActionPerformed
 
     /**
      * @param args the command line arguments
@@ -191,7 +202,9 @@ public class LoginView extends javax.swing.JFrame {
                         JOptionPane.showMessageDialog(null, "Wait for admin approval");
                     }
 
-                } else {
+                }else if(dto==null){
+                    JOptionPane.showMessageDialog(null, "Invalid User Name!");
+                }else {
                     JOptionPane.showMessageDialog(null, "Invalid Password!");
                 }
             } catch (Exception ex) {

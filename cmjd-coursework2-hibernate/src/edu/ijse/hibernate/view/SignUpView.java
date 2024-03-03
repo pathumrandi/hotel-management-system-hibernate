@@ -52,7 +52,7 @@ public class SignUpView extends javax.swing.JFrame {
         lblEmail = new javax.swing.JLabel();
         txtEmail = new javax.swing.JTextField();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         lblSignUp.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         lblSignUp.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -85,6 +85,11 @@ public class SignUpView extends javax.swing.JFrame {
 
         btnLogIn.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         btnLogIn.setText("Login");
+        btnLogIn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLogInActionPerformed(evt);
+            }
+        });
 
         btnForgetPassword.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         btnForgetPassword.setText("Forget Password?");
@@ -178,6 +183,12 @@ public class SignUpView extends javax.swing.JFrame {
         // TODO add your handling code here:
         insertUser();
     }//GEN-LAST:event_btnSignUpActionPerformed
+
+    private void btnLogInActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLogInActionPerformed
+        // TODO add your handling code here:
+        setVisible(false);
+        new LoginView().setVisible(true);
+    }//GEN-LAST:event_btnLogInActionPerformed
 
     /**
      * @param args the command line arguments

@@ -28,6 +28,7 @@ public class RoomRepositoryImple implements RoomRepository{
             return id;
         } catch (Exception e) {
             transaction.rollback();
+            System.out.println(e);
             return -1;
         }
     }
@@ -36,7 +37,7 @@ public class RoomRepositoryImple implements RoomRepository{
     public void update(RoomEntity t) throws Exception {
         Transaction transaction = session.beginTransaction();
         try {
-            session.update(t);
+            session.merge(t);
             transaction.commit();
         } catch (Exception e) {
             transaction.rollback();

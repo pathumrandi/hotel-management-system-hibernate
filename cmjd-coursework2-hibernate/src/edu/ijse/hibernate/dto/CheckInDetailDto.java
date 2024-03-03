@@ -2,11 +2,13 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package edu.ijse.hibernate.entity;
+package edu.ijse.hibernate.dto;
 
+import edu.ijse.hibernate.entity.CheckInEntity;
 import javax.persistence.CascadeType;
-import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -27,25 +29,22 @@ import lombok.ToString;
 @Setter
 @ToString
 @Entity
-@Table(name="rooms")
-public class RoomEntity {
-    @Id
-    @Column(name="roomNumber")
-    private Integer roomNumber;
+@Table(name = "CheckInDetail")
+public class CheckInDetailDto {
     
-    @Column(name="price")
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+    
+    private String nic;
+    private Integer roomNumber;
+    private String checkInDate;
+    private String checkOutDate;
+    private String packageName;
     private Integer price;
     
-    @Column(name="status")
-    private String status;
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "CheckIn_Id", nullable = false)
+    private CheckInEntity entity;
     
-    @Column(name="type")
-    private String type;
-    
-    @Column(name="bed")
-    private Integer bedCount;
-    
-//    @ManyToOne(cascade=CascadeType.ALL)
-//    @JoinColumn(name="room_category",nullable = false)
-//    private RoomCategoryEntity category;
 }

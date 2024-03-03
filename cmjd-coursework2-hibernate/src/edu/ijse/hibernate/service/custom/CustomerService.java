@@ -15,7 +15,7 @@ import java.util.List;
 public interface CustomerService extends SuperService{
     String saveCustomer(CustomerDto customerDto) throws Exception;
     String updateCustomer(CustomerDto customerDto) throws Exception;
-    String deleteCustomer(String custId) throws Exception;
-    CustomerDto getCustomer(String custId) throws Exception;
+    String deleteCustomer(Integer custId) throws Exception;
+    CustomerDto getCustomer(Integer custId) throws Exception;
     List<CustomerDto> getAllCustomers() throws Exception;
 }

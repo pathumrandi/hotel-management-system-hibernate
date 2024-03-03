@@ -10,6 +10,7 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -38,6 +39,7 @@ public class RoomCategoryEntity {
     @Column(name="userCount")
     private Integer userCount;
     
-    @OneToMany(mappedBy = "category",targetEntity = RoomEntity.class)
-    private List<RoomEntity> roomEntities;
+//    @Transient
+//    @OneToMany(mappedBy = "category",targetEntity = RoomEntity.class)
+//    private List<RoomEntity> roomEntities;
 }

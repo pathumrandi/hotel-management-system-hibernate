@@ -4,6 +4,7 @@
  */
 package edu.ijse.hibernate.repository;
 
+import edu.ijse.hibernate.repository.custom.imple.CheckInRepositoryImple;
 import edu.ijse.hibernate.repository.custom.imple.CustomerRepositoryImple;
 import edu.ijse.hibernate.repository.custom.imple.RoomCategoryRepositoryImple;
 import edu.ijse.hibernate.repository.custom.imple.RoomRepositoryImple;
@@ -29,7 +30,7 @@ public class RepositoryFactory {
     }
     
     public enum repositoryType{
-        CUSTOMER, ROOM, ROOM_CATOGORIES,USER
+        CUSTOMER, ROOM, ROOM_CATOGORIES,USER, CHECK_IN
     }
     
     public SuperRepository getRepository(repositoryType type){
@@ -45,6 +46,9 @@ public class RepositoryFactory {
                 
             case ROOM_CATOGORIES:
                 return new RoomCategoryRepositoryImple();
+                
+            case CHECK_IN:
+                return new CheckInRepositoryImple();
                 
             default:
                 return null;

@@ -17,6 +17,7 @@ public class HomeView extends javax.swing.JFrame {
      */
     public HomeView() {
         initComponents();
+        
     }
 
     /**
@@ -49,6 +50,11 @@ public class HomeView extends javax.swing.JFrame {
 
         btnReservation.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         btnReservation.setText("Manage Reservation");
+        btnReservation.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnReservationActionPerformed(evt);
+            }
+        });
 
         btnRoom.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         btnRoom.setText("Manage Rooms");
@@ -60,9 +66,19 @@ public class HomeView extends javax.swing.JFrame {
 
         btnRoomCategory.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         btnRoomCategory.setText("Manage Room Categories");
+        btnRoomCategory.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRoomCategoryActionPerformed(evt);
+            }
+        });
 
         btnCancelReservation.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         btnCancelReservation.setText("Reservation Cancelation");
+        btnCancelReservation.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCancelReservationActionPerformed(evt);
+            }
+        });
 
         btnLogout.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         btnLogout.setText("Logout");
@@ -146,6 +162,21 @@ public class HomeView extends javax.swing.JFrame {
         // TODO add your handling code here:
         new RoomView().setVisible(true);
     }//GEN-LAST:event_btnRoomActionPerformed
+
+    private void btnRoomCategoryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRoomCategoryActionPerformed
+        // TODO add your handling code here:
+        new RoomCategoryView().setVisible(true);
+    }//GEN-LAST:event_btnRoomCategoryActionPerformed
+
+    private void btnReservationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReservationActionPerformed
+        // TODO add your handling code here:
+        new ReservationView().setVisible(true);
+    }//GEN-LAST:event_btnReservationActionPerformed
+
+    private void btnCancelReservationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelReservationActionPerformed
+        // TODO add your handling code here:
+        new CancellationView().setVisible(true);
+    }//GEN-LAST:event_btnCancelReservationActionPerformed
 
     /**
      * @param args the command line arguments

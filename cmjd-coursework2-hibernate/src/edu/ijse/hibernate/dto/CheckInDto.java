@@ -20,14 +20,9 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
-public class CustomerDto {
+public class CheckInDto {
+    private Integer reservationId;
     private Integer custId;
-    private String custTitle;
-    private String dob;
-    private String gender;
-    private String custAddress;
-    private String nic;
-    private List<String> mobiles;
-    private String name1;
-    private String name2;
+    private String date;
+    private List<CheckInDetailDto> dtos;
 }

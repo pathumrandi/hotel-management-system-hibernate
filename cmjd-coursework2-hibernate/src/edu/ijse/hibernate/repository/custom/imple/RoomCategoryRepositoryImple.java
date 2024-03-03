@@ -35,14 +35,16 @@ public class RoomCategoryRepositoryImple implements RoomCategoryRepository{
     }
 
     @Override
-    public void update(RoomCategoryEntity t) throws Exception {
+    public void update(RoomCategoryEntity t) throws RuntimeException {
         Transaction transaction = session.beginTransaction();
         try {
-            session.update(t);
+            session.merge(t);
             transaction.commit();
         } catch (Exception e) {
             transaction.rollback();
+            System.out.println(e);
             throw new RuntimeException("Error at update " + t.getCategoryName());
+            
         }
     }
 

@@ -25,5 +25,5 @@ public class RoomCategoryDto {
     private String categoryName;
     private Integer bedCount;
     private Integer userCount;
-    private List<RoomEntity> roomEntities;
+//    private List<RoomEntity> roomEntities;
 }

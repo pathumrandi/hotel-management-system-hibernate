@@ -4,6 +4,18 @@
  */
 package edu.ijse.hibernate.view;
 
+import edu.ijse.hibernate.controller.RoomCategoryController;
+import edu.ijse.hibernate.controller.RoomController;
+import edu.ijse.hibernate.dto.CustomerDto;
+import edu.ijse.hibernate.dto.RoomCategoryDto;
+import edu.ijse.hibernate.dto.RoomDto;
+import edu.ijse.hibernate.entity.RoomCategoryEntity;
+import edu.ijse.hibernate.entity.RoomEntity;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -12,12 +24,17 @@ import javax.swing.table.DefaultTableModel;
  */
 public class RoomView extends javax.swing.JFrame {
 
+    private RoomController roomController;
+    private RoomCategoryController roomCategoryController;
+
     /**
      * Creates new form RoomView
      */
     public RoomView() {
-        loadTable();
+        roomController = new RoomController();
+        roomCategoryController = new RoomCategoryController();
         initComponents();
+        loadTable();
     }
 
     /**
@@ -33,14 +50,18 @@ public class RoomView extends javax.swing.JFrame {
         lblRoomNumber = new javax.swing.JLabel();
         txtRoomNumber = new javax.swing.JTextField();
         lblCategory = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        txtCategory = new javax.swing.JComboBox<>();
         lblPrice = new javax.swing.JLabel();
         txtPrice = new javax.swing.JTextField();
         btnAdd = new javax.swing.JButton();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        tblRooms = new javax.swing.JTable();
+        lblStatus = new javax.swing.JLabel();
+        txtStatus = new javax.swing.JTextField();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tblRoom = new javax.swing.JTable();
+        btnDelete = new javax.swing.JButton();
+        btnUpdate = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setLocation(new java.awt.Point(50, 118));
 
         lblManageRoom.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
@@ -50,21 +71,50 @@ public class RoomView extends javax.swing.JFrame {
 
         lblCategory.setText("Room Category");
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Single room", "Double room", "Triple room", "Quad room" }));
+        txtCategory.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Single", "Double", "Master" }));
 
         lblPrice.setText("Price");
 
         btnAdd.setText("Add room");
+        btnAdd.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAddActionPerformed(evt);
+            }
+        });
 
-        tblRooms.setModel(new javax.swing.table.DefaultTableModel(
+        lblStatus.setText("Status");
+
+        tblRoom.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
             },
             new String [] {
-                "Room Number", "Type", "Bed Count", "Price", "Status"
+                "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane2.setViewportView(tblRooms);
+        tblRoom.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblRoomMouseClicked(evt);
+            }
+        });
+        jScrollPane1.setViewportView(tblRoom);
+
+        btnDelete.setText("Delete room");
+        btnDelete.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDeleteActionPerformed(evt);
+            }
+        });
+
+        btnUpdate.setText("Update room");
+        btnUpdate.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnUpdateActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -76,47 +126,81 @@ public class RoomView extends javax.swing.JFrame {
                         .addGap(485, 485, 485)
                         .addComponent(lblManageRoom, javax.swing.GroupLayout.PREFERRED_SIZE, 294, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(58, 58, 58)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(91, 91, 91)
+                        .addGap(50, 50, 50)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(99, 99, 99)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(lblRoomNumber, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtCategory, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                 .addComponent(lblPrice, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(lblCategory, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(txtRoomNumber, javax.swing.GroupLayout.Alignment.LEADING))
                             .addComponent(txtPrice, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnAdd))))
+                            .addComponent(btnAdd)
+                            .addComponent(lblStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnUpdate)
+                            .addComponent(btnDelete))))
                 .addContainerGap(487, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(29, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(lblManageRoom)
-                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
+                        .addGap(30, 30, 30)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(18, 18, 18)
                         .addComponent(lblRoomNumber)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(txtRoomNumber, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(44, 44, 44)
+                        .addGap(18, 18, 18)
                         .addComponent(lblCategory)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(51, 51, 51)
+                        .addComponent(txtCategory, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(lblStatus)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(txtStatus, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
                         .addComponent(lblPrice)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(txtPrice, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(54, 54, 54)
-                        .addComponent(btnAdd))
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(82, 82, 82))
+                        .addGap(45, 45, 45)
+                        .addComponent(btnAdd)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnUpdate)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnDelete)))
+                .addGap(95, 95, 95))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
+        // TODO add your handling code here:
+        addRoom();
+    }//GEN-LAST:event_btnAddActionPerformed
+
+    private void tblRoomMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblRoomMouseClicked
+        // TODO add your handling code here:
+        searchRoom();
+    }//GEN-LAST:event_tblRoomMouseClicked
+
+    private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
+        // TODO add your handling code here:
+        deleteRoom();
+    }//GEN-LAST:event_btnDeleteActionPerformed
+
+    private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
+        // TODO add your handling code here:
+        updateRoom();
+    }//GEN-LAST:event_btnUpdateActionPerformed
 
     /**
      * @param args the command line arguments
@@ -155,19 +239,123 @@ public class RoomView extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAdd;
-    private javax.swing.JComboBox<String> jComboBox1;
-    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JButton btnDelete;
+    private javax.swing.JButton btnUpdate;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblCategory;
     private javax.swing.JLabel lblManageRoom;
     private javax.swing.JLabel lblPrice;
     private javax.swing.JLabel lblRoomNumber;
-    private javax.swing.JTable tblRooms;
+    private javax.swing.JLabel lblStatus;
+    private javax.swing.JTable tblRoom;
+    private javax.swing.JComboBox<String> txtCategory;
     private javax.swing.JTextField txtPrice;
     private javax.swing.JTextField txtRoomNumber;
+    private javax.swing.JTextField txtStatus;
     // End of variables declaration//GEN-END:variables
 
     private void loadTable() {
+        try {
+            String[] columns = {"Room Number", "Type", "Bed Count", "Price", "Status"};
+            DefaultTableModel dtm = new DefaultTableModel(columns, 0) {
+                @Override
+                public boolean isCellEditable(int row, int column) {
+                    return false;
+                }
 
-        
+            };
+            tblRoom.setModel(dtm);
+            List<RoomDto> dtos = roomController.getAll();
+            for (RoomDto dto : dtos) {
+                Object[] rawData = {dto.getRoomNumber(), /*"", "",*/dto.getType(),dto.getBedCount(), dto.getPrice(), dto.getStatus()};
+                dtm.addRow(rawData);
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(RoomView.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+    }
+
+    private void addRoom() {
+        try {
+            RoomCategoryEntity category = new RoomCategoryEntity();
+            String categoryName = txtCategory.getSelectedItem().toString();
+            RoomCategoryDto roomCategorydto = roomCategoryController.getRoomCategory(categoryName);
+
+            RoomDto roomDto = new RoomDto(
+                    Integer.parseInt(txtRoomNumber.getText()),
+                    Integer.parseInt(txtPrice.getText()),
+                    txtStatus.getText(),
+                    roomCategorydto.getCategoryName(),
+                    roomCategorydto.getBedCount()
+//                                ,category
+            );
+
+            String resp = roomController.saveRoom(roomDto);
+            clearForm();
+            JOptionPane.showMessageDialog(this, resp);
+            loadTable();
+        } catch (Exception ex) {
+            Logger.getLogger(RoomView.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    private void clearForm() {
+        txtRoomNumber.setText("");
+        txtPrice.setText("");
+        txtStatus.setText("");
+    }
+
+    private void searchRoom() {
+        try {
+            String roomNumber = tblRoom.getValueAt(tblRoom.getSelectedRow(), 0).toString();
+            RoomDto dto = roomController.getRoom(Integer.parseInt(roomNumber));
+            if (dto == null) {
+                JOptionPane.showMessageDialog(this, "Customer Not Found");
+            } else {
+                txtRoomNumber.setText(dto.getRoomNumber().toString());
+                txtPrice.setText(dto.getPrice().toString());
+                txtStatus.setText(dto.getStatus());
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(RoomView.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(this, "Error at loading Room Data");
+        }
+    }
+
+    private void deleteRoom() {
+        try {
+            Integer roomNumber = Integer.parseInt(txtRoomNumber.getText());
+            String resp = roomController.deleteRoom(roomNumber);
+            loadTable();
+            clearForm();
+            JOptionPane.showMessageDialog(this, resp);
+        } catch (Exception ex) {
+            Logger.getLogger(RoomView.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(this, ex);
+        }
+    }
+
+    private void updateRoom() {
+        try {
+            RoomCategoryEntity category = new RoomCategoryEntity();
+            String categoryName = txtCategory.getSelectedItem().toString();
+            RoomCategoryDto roomCategorydto = roomCategoryController.getRoomCategory(categoryName);
+            RoomDto roomDto = new RoomDto(
+                    Integer.parseInt(txtRoomNumber.getText()),
+                    Integer.parseInt(txtPrice.getText()),
+                    txtStatus.getText(),
+                    roomCategorydto.getCategoryName(),
+                    roomCategorydto.getBedCount()
+//                                ,category
+            );
+            
+            String resp = roomController.updateRoomCategories(roomDto);
+            loadTable();
+            clearForm();
+            JOptionPane.showMessageDialog(this, resp);
+        } catch (Exception ex) {
+            Logger.getLogger(RoomView.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 }

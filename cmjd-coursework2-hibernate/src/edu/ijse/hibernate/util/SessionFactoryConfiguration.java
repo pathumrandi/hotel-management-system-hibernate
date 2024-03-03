@@ -5,6 +5,8 @@
 package edu.ijse.hibernate.util;
 
 
+import edu.ijse.hibernate.dto.CheckInDetailDto;
+import edu.ijse.hibernate.entity.CheckInEntity;
 import edu.ijse.hibernate.entity.CustomerEntity;
 import edu.ijse.hibernate.entity.RoomCategoryEntity;
 import edu.ijse.hibernate.entity.RoomEntity;
@@ -27,7 +29,9 @@ public class SessionFactoryConfiguration {
                 .addAnnotatedClass(CustomerEntity.class)
                 .addAnnotatedClass(UserEntity.class)
                 .addAnnotatedClass(RoomEntity.class)
-                .addAnnotatedClass(RoomCategoryEntity.class);
+                .addAnnotatedClass(RoomCategoryEntity.class)
+                .addAnnotatedClass(CheckInEntity.class)
+                .addAnnotatedClass(CheckInDetailDto.class);
         
         sessionFactory = configuration.buildSessionFactory();
     }

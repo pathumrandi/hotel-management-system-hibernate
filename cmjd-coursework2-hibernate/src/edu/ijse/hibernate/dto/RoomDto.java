@@ -24,5 +24,7 @@ public class RoomDto {
     private Integer roomNumber;
     private Integer price;
     private String status;
-    private RoomCategoryEntity category;
+    private String type;
+    private Integer bedCount;
+//    private RoomCategoryEntity category;
 }

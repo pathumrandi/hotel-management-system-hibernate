@@ -17,6 +17,6 @@ public interface RoomService extends SuperService{
     String saveRoom(RoomDto roomDto) throws Exception;
     String updateRoom(RoomDto roomDto) throws Exception;
     String deleteRoom(Integer roomNumber) throws Exception;
-    CustomerDto getRoom(Integer roomNumber) throws Exception;
+    RoomDto getRoom(Integer roomNumber) throws Exception;
     List<RoomDto> getAllRooms() throws Exception;
 }

@@ -4,7 +4,6 @@
  */
 package edu.ijse.hibernate.service.custom;
 
-import edu.ijse.hibernate.dto.CustomerDto;
 import edu.ijse.hibernate.dto.RoomCategoryDto;
 import edu.ijse.hibernate.service.SuperService;
 import java.util.List;
@@ -17,6 +16,6 @@ public interface RoomCategoryService extends SuperService{
     String saveRoomCategory(RoomCategoryDto roomCategoryDto) throws Exception;
     String updateRoomCategory(RoomCategoryDto roomCategoryDto) throws Exception;
     String deleteRoomCategory(String categoryName) throws Exception;
-    CustomerDto getRoomCategory(String categoryName) throws Exception;
-    List<CustomerDto> getAllRoomCategories() throws Exception;
+    RoomCategoryDto getRoomCategory(String categoryName) throws Exception;
+    List<RoomCategoryDto> getAllRoomCategories() throws Exception;
 }

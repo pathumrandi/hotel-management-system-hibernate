@@ -5,7 +5,10 @@
 package edu.ijse.hibernate.service.custom.imple;
 
 import edu.ijse.hibernate.dto.CustomerDto;
+import edu.ijse.hibernate.dto.RoomCategoryDto;
 import edu.ijse.hibernate.entity.CustomerEntity;
+import edu.ijse.hibernate.entity.RoomCategoryEntity;
+import edu.ijse.hibernate.entity.RoomEntity;
 import edu.ijse.hibernate.entity.embeded.CustomerName;
 import edu.ijse.hibernate.repository.RepositoryFactory;
 import static edu.ijse.hibernate.repository.RepositoryFactory.repositoryType.CUSTOMER;
@@ -31,6 +34,7 @@ public class CustomerServiceImple implements CustomerService{
                 customerDto.getCustTitle(), 
                 customerName,
                 customerDto.getDob(),
+                customerDto.getGender(),
                 customerDto.getCustAddress(),
                 customerDto.getNic(),
                 customerDto.getMobiles());
@@ -44,17 +48,43 @@ public class CustomerServiceImple implements CustomerService{
 
     @Override
     public String updateCustomer(CustomerDto customerDto) throws Exception {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        CustomerName customerName = new CustomerName();
+        customerName.setFirstName(customerDto.getName1());
+        customerName.setLastName(customerDto.getName2());
+        CustomerEntity entity = new CustomerEntity(
+                customerDto.getCustId(),
+                customerDto.getCustTitle(), 
+                customerName,
+                customerDto.getDob(),
+                customerDto.getGender(),
+                customerDto.getCustAddress(),
+                customerDto.getNic(),
+                customerDto.getMobiles()
+        );
+        customerRepository.update(entity);
+        return "Updated Succesfully";
     }
 
     @Override
-    public String deleteCustomer(String custId) throws Exception {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public String deleteCustomer(Integer custId) throws Exception {
+        customerRepository.delete(custId);
+        return "Succesfully delete";
     }
 
     @Override
-    public CustomerDto getCustomer(String custId) throws Exception {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public CustomerDto getCustomer(Integer custId) throws Exception {
+        CustomerEntity e = customerRepository.get(custId);
+        CustomerDto dto = new CustomerDto(
+                    e.getCustId(),
+                    e.getCustTitle(),
+                    e.getDob(),
+                    e.getGender(),
+                    e.getCustAddress(),
+                    e.getNic(),
+                    e.getMobiles(),
+                    e.getCustomername().getFirstName(),
+                    e.getCustomername().getLastName());
+        return dto;
     }
 
     @Override
@@ -67,6 +97,7 @@ public class CustomerServiceImple implements CustomerService{
                     e.getCustId(),
                     e.getCustTitle(),
                     e.getDob(),
+                    e.getGender(),
                     e.getCustAddress(),
                     e.getNic(),
                     e.getMobiles(),

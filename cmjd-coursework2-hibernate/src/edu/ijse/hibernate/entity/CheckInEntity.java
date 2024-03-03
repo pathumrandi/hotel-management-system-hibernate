@@ -4,8 +4,7 @@
  */
 package edu.ijse.hibernate.entity;
 
-import edu.ijse.hibernate.entity.embeded.CustomerName;
-import java.util.Date;
+import edu.ijse.hibernate.dto.CheckInDetailDto;
 import java.util.List;
 import javax.persistence.CollectionTable;
 import javax.persistence.Column;
@@ -15,13 +14,15 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
-import org.hibernate.annotations.CreationTimestamp;
 
 /**
  *
@@ -33,36 +34,21 @@ import org.hibernate.annotations.CreationTimestamp;
 @Setter
 @ToString
 @Entity
-@Table(name="customer")
-public class CustomerEntity {
+@Table(name="CheckIn")
+public class CheckInEntity {
     
     @Id
-    @Column(name="CustID")
+    @Column(name="ReservationID")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer reservationId;
+    
+    @Column(name = "CustID", length = 50, nullable = false)
     private Integer custId;
     
-    @Column(name = "CustTitle", length = 5, nullable = false)
-    private String custTitle;
+    @Column(name = "Date", length = 50, nullable = false)
+    private String date;
     
-    private CustomerName customername;
-    
-    @Column(name = "DOB", length = 20, nullable = false)
-    private String dob;
-    
-    @Column(name = "Gender", length = 20, nullable = false)
-    private String gender;
-    
-    @Column(name = "CustAddress", length = 150, nullable = false)
-    private String custAddress;
-    
-    @Column(name = "NIC", length = 12, nullable = false)
-    private String nic;
-    
-    @ElementCollection
-    @CollectionTable(
-        name = "cust_mobile", 
-        joinColumns = @JoinColumn(name = "cust_id"))
-    private List<String> mobiles;
-    
-    
+    @Transient
+    @OneToMany(mappedBy = "entity", targetEntity = CheckInDetailDto.class)
+    private List<CheckInDetailDto> dtos;
 }

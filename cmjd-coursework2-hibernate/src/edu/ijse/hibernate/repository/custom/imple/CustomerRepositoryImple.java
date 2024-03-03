@@ -39,7 +39,7 @@ public class CustomerRepositoryImple implements CustomerRepository {
     public void update(CustomerEntity t) throws Exception {
         Transaction transaction = session.beginTransaction();
         try {
-            session.update(t);
+            session.merge(t);
             transaction.commit();
         } catch (Exception e) {
             transaction.rollback();
@@ -48,7 +48,7 @@ public class CustomerRepositoryImple implements CustomerRepository {
     }
 
     @Override
-    public void delete(String id) throws Exception {
+    public void delete(Integer id) throws Exception {
         Transaction transaction = session.beginTransaction();
         CustomerEntity customerEntity = get(id);
         try {
@@ -61,7 +61,7 @@ public class CustomerRepositoryImple implements CustomerRepository {
     }
 
     @Override
-    public CustomerEntity get(String id) throws Exception {
+    public CustomerEntity get(Integer id) throws Exception {
         CustomerEntity customerEntity = session.get(CustomerEntity.class, id);
         return customerEntity;
     }
